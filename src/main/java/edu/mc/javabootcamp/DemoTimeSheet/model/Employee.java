@@ -17,25 +17,39 @@ public class Employee {
     private String lastName;
     private String firstName;
     private String email;
+    private String strAddr;
+    private String city;
+    private String state;
+    private String zip;
     private double payRate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    public Employee() {
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private Set<TimeSheet> timeSheetSet;
 
+    public Employee() {
+        timeSheetSet = new HashSet<TimeSheet>();
     }
 
     public Employee(String username, String ssn, String lastName, String firstName, String email,
-                    double payRate, Manager manager) {
+                    String strAddr, String city, String state, String zip, double payRate,
+                    Manager manager, Set<TimeSheet> timeSheetSet) {
         this.username = username;
         this.ssn = ssn;
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
+        this.strAddr = strAddr;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
         this.payRate = payRate;
         this.manager = manager;
+        this.timeSheetSet = timeSheetSet;
     }
 
     public long getId() {
@@ -84,6 +98,30 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getStrAddr() {
+        return strAddr;
+    }
+
+    public void setStrAddr(String strAddr) {
+        this.strAddr = strAddr;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public double getPayRate() {
