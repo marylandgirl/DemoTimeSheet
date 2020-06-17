@@ -91,8 +91,7 @@ public class DataLoader implements CommandLineRunner {
         accumulatedTimeBenefitRepository.save(ashuAccumulatedTimeBenefit);
         ashu = employeeRepository.findById(ashu.getId());
         ashu.setAccumulatedTimeBenefit(ashuAccumulatedTimeBenefit);
-        //System.out.println("Ashu's id is " + ashu.getId());
-        //employeeRepository.save(employeeRepository.findById(ashu.getId()));
+        employeeRepository.save(ashu);
 
 
         TimeSheet kimTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), kim,
@@ -106,6 +105,7 @@ public class DataLoader implements CommandLineRunner {
         kimAccumulatedTimeBenefit.setEmployee(kim);
         accumulatedTimeBenefitRepository.save(kimAccumulatedTimeBenefit);
         kim.setAccumulatedTimeBenefit(kimAccumulatedTimeBenefit);
+        employeeRepository.save(kim);
 
 
         TimeSheet bilenTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), bilen,
