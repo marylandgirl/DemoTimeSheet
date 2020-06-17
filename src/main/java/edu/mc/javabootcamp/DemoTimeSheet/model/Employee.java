@@ -31,13 +31,19 @@ public class Employee {
             fetch = FetchType.EAGER)
     private Set<TimeSheet> timeSheetSet;
 
+    @OneToOne(mappedBy = "employee")
+    private AccumulatedTimeBenefit accumulatedTimeBenefit;
+
     public Employee() {
+        manager = new Manager();
         timeSheetSet = new HashSet<TimeSheet>();
+        accumulatedTimeBenefit = new AccumulatedTimeBenefit();
     }
 
     public Employee(String username, String ssn, String lastName, String firstName, String email,
                     String strAddr, String city, String state, String zip, double payRate,
                     Manager manager, Set<TimeSheet> timeSheetSet) {
+        super();
         this.username = username;
         this.ssn = ssn;
         this.lastName = lastName;
@@ -50,6 +56,7 @@ public class Employee {
         this.payRate = payRate;
         this.manager = manager;
         this.timeSheetSet = timeSheetSet;
+        this.accumulatedTimeBenefit = accumulatedTimeBenefit;
     }
 
     public long getId() {
@@ -108,6 +115,14 @@ public class Employee {
         this.strAddr = strAddr;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getState() {
         return state;
     }
@@ -138,5 +153,21 @@ public class Employee {
 
     public void setManager(Manager manager) {
         this.manager = manager;
+    }
+
+    public Set<TimeSheet> getTimeSheetSet() {
+        return timeSheetSet;
+    }
+
+    public void setTimeSheetSet(Set<TimeSheet> timeSheetSet) {
+        this.timeSheetSet = timeSheetSet;
+    }
+
+    public AccumulatedTimeBenefit getAccumulatedTimeBenefit() {
+        return accumulatedTimeBenefit;
+    }
+
+    public void setAccumulatedTimeBenefit(AccumulatedTimeBenefit accumulatedTimeBenefit) {
+        this.accumulatedTimeBenefit = accumulatedTimeBenefit;
     }
 }

@@ -36,12 +36,14 @@ public class TimeSheet {
     private Boolean enabled;
 
     public TimeSheet() {
+        employee = new Employee();
     }
 
     public TimeSheet(LocalDate startDate, LocalDate endDate, Employee employee, double regHours,
                      double overTimeHrs, double holidayHrs, double holidayWrkdHrs, double holidayOTHrs,
                      double leaveNoPayHrs, double compTimeEarnedHrs, double getCompTimeUsedHrs,
                      double annualLeaveHrs, int rejCode, String rejMsg, Boolean enabled) {
+        super();
         this.startDate = startDate;
         this.endDate = endDate;
         this.employee = employee;

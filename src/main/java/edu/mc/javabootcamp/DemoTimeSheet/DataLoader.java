@@ -1,8 +1,10 @@
 package edu.mc.javabootcamp.DemoTimeSheet;
 
+import edu.mc.javabootcamp.DemoTimeSheet.model.AccumulatedTimeBenefit;
 import edu.mc.javabootcamp.DemoTimeSheet.model.Employee;
 import edu.mc.javabootcamp.DemoTimeSheet.model.Manager;
 import edu.mc.javabootcamp.DemoTimeSheet.model.TimeSheet;
+import edu.mc.javabootcamp.DemoTimeSheet.repository.AccumulatedTimeBenefitRepository;
 import edu.mc.javabootcamp.DemoTimeSheet.repository.EmployeeRepository;
 import edu.mc.javabootcamp.DemoTimeSheet.repository.ManagerRepository;
 import edu.mc.javabootcamp.DemoTimeSheet.repository.TimeSheetRepository;
@@ -27,6 +29,9 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     TimeSheetRepository timeSheetRepository;
 
+    @Autowired
+    AccumulatedTimeBenefitRepository accumulatedTimeBenefitRepository;
+
     @Override
     public void run(String... strings) throws Exception{
 
@@ -34,9 +39,11 @@ public class DataLoader implements CommandLineRunner {
         managerRepository.save(managerSue);
 
 
+
         Employee sue = new Employee("sue", "111-11-1111", "Han", "Sue",
                 "sue@mc.edu", "7 Main Ave", "Potomac", "MD", "22222",
                 150.00, managerSue, new HashSet<TimeSheet>());
+
 
         Employee kim = new Employee("kim", "222-22-2222", "Levin", "Kim",
                 "kim@mc.edu", "9999 College Lane", "Rockville", "MD", "33333",
@@ -72,14 +79,34 @@ public class DataLoader implements CommandLineRunner {
         timeSheetRepository.save(sueTimeSheet);
 
         TimeSheet ashuTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), ashu,
-                40, 40, 0, 0, 0, 0,
-                0, 0, 0, 0, "", true );
+                40, 30, 0, 0, 0, 0,
+                0, 10, 0, 0, "", true );
         timeSheetRepository.save(ashuTimeSheet);
 
+
+        AccumulatedTimeBenefit ashuAccumulatedTimeBenefit = new AccumulatedTimeBenefit();
+        ashuAccumulatedTimeBenefit.setCumCompTimeUsed(ashuTimeSheet.getGetCompTimeUsedHrs());
+        accumulatedTimeBenefitRepository.save(ashuAccumulatedTimeBenefit);
+        ashuAccumulatedTimeBenefit.setEmployee(ashu);
+        accumulatedTimeBenefitRepository.save(ashuAccumulatedTimeBenefit);
+        ashu = employeeRepository.findById(ashu.getId());
+        ashu.setAccumulatedTimeBenefit(ashuAccumulatedTimeBenefit);
+        //System.out.println("Ashu's id is " + ashu.getId());
+        //employeeRepository.save(employeeRepository.findById(ashu.getId()));
+
+
         TimeSheet kimTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), kim,
-                40, 12, 0, 0, 0, 0,
-                8, 0, 0, 0, "", true );
+                40, 4, 0, 0, 0, 0,
+                8, 0, 8, 0, "", true );
         timeSheetRepository.save(kimTimeSheet);
+        AccumulatedTimeBenefit kimAccumulatedTimeBenefit = new AccumulatedTimeBenefit();
+        kimAccumulatedTimeBenefit.setCumAnnualLeaveUsed(kimTimeSheet.getAnnualLeaveHrs());
+        accumulatedTimeBenefitRepository.save(kimAccumulatedTimeBenefit);
+        kim = employeeRepository.findById(kim.getId());
+        kimAccumulatedTimeBenefit.setEmployee(kim);
+        accumulatedTimeBenefitRepository.save(kimAccumulatedTimeBenefit);
+        kim.setAccumulatedTimeBenefit(kimAccumulatedTimeBenefit);
+
 
         TimeSheet bilenTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), bilen,
                 32, 0, 0, 0, 0, 0,

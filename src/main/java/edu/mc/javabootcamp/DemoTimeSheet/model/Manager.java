@@ -17,7 +17,7 @@ public class Manager {
     private Set<Employee> employeeSet;
 
     public Manager() {
-        employeeSet = new HashSet<>();
+        employeeSet = new HashSet<Employee>();
     }
 
     public Manager(long empId, Set<Employee> employeeSet) {
