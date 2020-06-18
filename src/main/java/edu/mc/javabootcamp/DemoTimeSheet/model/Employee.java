@@ -1,6 +1,4 @@
-package edu.mc.javabootcamp.DemoTimeSheet.model;
-
-import org.springframework.web.bind.annotation.GetMapping;
+package edu.mc.javabootcamp.DemoTimeSheet.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
