@@ -1,4 +1,4 @@
-package edu.mc.javabootcamp.DemoTimeSheet.domain;
+package edu.mc.javabootcamp.DemoTimeSheet.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,7 +10,6 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String username;
     private String ssn;
     private String lastName;
     private String firstName;
@@ -25,12 +24,15 @@ public class Employee {
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "employee", cascade = {CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.EAGER)
     private Set<TimeSheet> timeSheetSet;
 
     @OneToOne(mappedBy = "employee")
     private AccumulatedTimeBenefit accumulatedTimeBenefit;
+
+    @OneToOne(mappedBy = "employee")
+    private User user;
 
     public Employee() {
         manager = new Manager();
@@ -38,11 +40,9 @@ public class Employee {
         accumulatedTimeBenefit = new AccumulatedTimeBenefit();
     }
 
-    public Employee(String username, String ssn, String lastName, String firstName, String email,
-                    String strAddr, String city, String state, String zip, double payRate,
-                    Manager manager, Set<TimeSheet> timeSheetSet) {
-        super();
-        this.username = username;
+    public Employee(String ssn, String lastName, String firstName, String email, String strAddr,
+                    String city, String state, String zip, double payRate, Manager manager,
+                    Set<TimeSheet> timeSheetSet) {
         this.ssn = ssn;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -53,8 +53,7 @@ public class Employee {
         this.zip = zip;
         this.payRate = payRate;
         this.manager = manager;
-        this.timeSheetSet = timeSheetSet;
-        this.accumulatedTimeBenefit = accumulatedTimeBenefit;
+        this.timeSheetSet = timeSheetSet;;
     }
 
     public long getId() {
@@ -63,14 +62,6 @@ public class Employee {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getSsn() {
@@ -167,5 +158,13 @@ public class Employee {
 
     public void setAccumulatedTimeBenefit(AccumulatedTimeBenefit accumulatedTimeBenefit) {
         this.accumulatedTimeBenefit = accumulatedTimeBenefit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

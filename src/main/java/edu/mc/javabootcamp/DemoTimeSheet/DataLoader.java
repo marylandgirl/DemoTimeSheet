@@ -1,18 +1,12 @@
 package edu.mc.javabootcamp.DemoTimeSheet;
 
-import edu.mc.javabootcamp.DemoTimeSheet.model.AccumulatedTimeBenefit;
-import edu.mc.javabootcamp.DemoTimeSheet.model.Employee;
-import edu.mc.javabootcamp.DemoTimeSheet.model.Manager;
-import edu.mc.javabootcamp.DemoTimeSheet.model.TimeSheet;
-import edu.mc.javabootcamp.DemoTimeSheet.repository.AccumulatedTimeBenefitRepository;
-import edu.mc.javabootcamp.DemoTimeSheet.repository.EmployeeRepository;
-import edu.mc.javabootcamp.DemoTimeSheet.repository.ManagerRepository;
-import edu.mc.javabootcamp.DemoTimeSheet.repository.TimeSheetRepository;
+import edu.mc.javabootcamp.DemoTimeSheet.model.*;
+import edu.mc.javabootcamp.DemoTimeSheet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +26,13 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     AccumulatedTimeBenefitRepository accumulatedTimeBenefitRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AuthoritiesRepository authoritiesRepository;
+
+
     @Override
     public void run(String... strings) throws Exception{
 
@@ -40,20 +41,20 @@ public class DataLoader implements CommandLineRunner {
 
 
 
-        Employee sue = new Employee("sue", "111-11-1111", "Han", "Sue",
+        Employee sue = new Employee("111-11-1111", "Han", "Sue",
                 "sue@mc.edu", "7 Main Ave", "Potomac", "MD", "22222",
                 150.00, managerSue, new HashSet<TimeSheet>());
 
 
-        Employee kim = new Employee("kim", "222-22-2222", "Levin", "Kim",
+        Employee kim = new Employee("222-22-2222", "Levin", "Kim",
                 "kim@mc.edu", "9999 College Lane", "Rockville", "MD", "33333",
                 100.00, managerSue, new HashSet<TimeSheet>());
 
-        Employee ashu = new Employee("ashu", "333-33-3333", "Maru", "Ashuashenafi",
+        Employee ashu = new Employee("333-33-3333", "Maru", "Ashuashenafi",
                 "ashu@mc.edu", "54321 Gold Street", "Germantown", "MD", "44444",
                 100.00, managerSue, new HashSet<TimeSheet>());
 
-        Employee bilen = new Employee("bilen", "444-44-4444", "Worku", "Bilen",
+        Employee bilen = new Employee("444-44-4444", "Worku", "Bilen",
                 "bilen@mc.edu", "77777 Happy Street", "Vienna", "VA", "55555",
                 100.00, managerSue, new HashSet<TimeSheet>());
 
@@ -72,6 +73,33 @@ public class DataLoader implements CommandLineRunner {
         employeeHashSet.add(bilen);
         managerSue.setEmployeeSet(employeeHashSet);
         managerRepository.save(managerSue);
+
+        Authorities sueAuthority = new Authorities();
+        sueAuthority.setAuthority("ROLE_USER");
+        Set<Authorities> sueAuthorities = new HashSet<>();
+        sueAuthorities.add(sueAuthority);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User uSue = new User("sue", encoder.encode("teacher"), true);
+        sue = employeeRepository.findById(sue.getId());
+        uSue.setEmployee(sue);
+        uSue.setAuthorities(sueAuthorities);
+        userRepository.save(uSue);
+        sue.setUser(uSue);
+        sueAuthority.setUser(uSue);
+     /*   Authorities sueAuthority = new Authorities();
+        sueAuthority.setAuthority("ROLE_USER");
+        sueAuthority.setUser(uSue);*/
+     /*   Set<Authorities> sueAuthorities = new HashSet<>();
+        sueAuthorities.add(sueAuthority);*/
+//        uSue.setAuthorities(sueAuthorities);
+//        sue.setUser(uSue);
+//        employeeRepository.save(sue);
+      //  userRepository.save(uSue);
+        employeeRepository.save(sue);
+        authoritiesRepository.save(sueAuthority);
+
+
+
 
         TimeSheet sueTimeSheet = new TimeSheet(LocalDate.parse("2020-06-15"), LocalDate.parse("2020-06-21"), sue,
                 40, 10, 0, 0, 0, 0,

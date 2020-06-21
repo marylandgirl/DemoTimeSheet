@@ -1,4 +1,4 @@
-package edu.mc.javabootcamp.DemoTimeSheet.domain;
+package edu.mc.javabootcamp.DemoTimeSheet.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
