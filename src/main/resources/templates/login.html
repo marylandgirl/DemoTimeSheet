@@ -5,29 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Please sign in</title>
+    <title>Register or Sign In</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" type="text/css" rel="stylesheet"/>
+    <link href="../static/css/registration.css" th:href="@{/css/registration.css}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
+<nav class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a href="index.html" class="navbar-brand">KAB4IT</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-traget="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">New Timesheet</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Submitted Timesheets</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Timesheet Archive</a>
+                </li>
+            </ul>
+        </div>
+        <br>
 
-    <div th:if="${param.error}">
-        Invalid username or password
     </div>
-    <form class="form-signin"  th:action="@{/login}" method="post">
-        <h2 class="form-signin-heading">Login Page</h2>
-        <div>
-            <label for="username" class="sr-only">User name:</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username"  required autofocus/>
+</nav>
+<header id="home-section">
+    <div class="dark-overlay">
+        <div class="home-inner container">
+            <div class="row">
+                <div class="col-lg-8 d-none d-lg-block"><!--Start col #1-->
+                    <h1 class="display-4"><strong>Timesheet Workflow Application</strong></h1>
+                    <div class="d-flex"><!--Start flex box #1-->
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            Update and Submit Timesheet for Current Pay Period
+                        </div>
+                    </div><!--End flex box #1-->
+                    <div class="d-flex"><!--Start flex box #2-->
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            List Timesheets for Pay Periods Within 2 years
+                        </div>
+                    </div><!--End flex box #2-->
+                    <div class="d-flex"><!--Start flex box #3-->
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            List and Approve Timesheets of Direct Reports
+                        </div>
+                    </div><!--End flex box #3-->
+                    <div class="d-flex"><!--Start flex box #4-->
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            Generate Pay Stubs of Direct Reports
+                        </div>
+                    </div><!--End flex box #4-->
+                </div><!--End col #1-->
+                <div class="col-lg-4"><!--Start col #2-->
+                    <div class="card text-center card-form card-reg">
+                        <div class="card-body">
+                            <h3>Sign Up Today</h3>
+                            <p>Please Fill Out This Form To Register</p>
+                            <form th:action="@{/login}" method="post">
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="text" placeholder="First Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="text" placeholder="Last Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="email" placeholder="Email"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="password" placeholder="Password"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="password" placeholder="Confirm Password"/>
+                                </div>
+                                <input type="submit" value="Submit" class="btn btn-block btn-reg-submit" />
+                                <span class="form-text"><strong>Already Have an Account?</strong>&nbsp;<a class="log-reg" href="#">Sign In</a></span>
+                            </form>
+                        </div>
+                    </div>
+                </div><!--End col #2-->
+            </div>
         </div>
-        <div>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </div>
-        <div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </div>
-    </form>
-</div>
-</body></html>
+    </div>
+</header>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
