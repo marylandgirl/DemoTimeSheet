@@ -79,8 +79,9 @@ public class DataLoader implements CommandLineRunner {
         Set<Authorities> sueAuthorities = new HashSet<>();
         sueAuthorities.add(sueAuthority);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User uSue = new User("sue", encoder.encode("teacher"), true);
         sue = employeeRepository.findById(sue.getId());
+        User uSue = new User(sue.getEmail(), encoder.encode("teacher"), true);
+        // 7/1/2020 testing moving it above creation of User object - sue = employeeRepository.findById(sue.getId());
         uSue.setEmployee(sue);
         uSue.setAuthorities(sueAuthorities);
         userRepository.save(uSue);

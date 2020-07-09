@@ -6,6 +6,10 @@ nav {
     background-color: #6A4A3C;
 }
 
+.nav-link:hover, .navbar-brand:hover {
+    color: #EB6841 !important;
+}
+
 nav a {
     color: #edc951;
 }
@@ -15,6 +19,9 @@ nav a {
     opacity: 0.8;
 }
 
+.form-control:focus {
+    background-color: #edc951 !important;
+}
 .btn-reg-submit {
     /*Submit button on registration page*/
     background-color: #00A0B0;
@@ -58,4 +65,11 @@ nav a {
 
 i {
     color: #00A0B0;
+}
+
+#home-section .fas {
+    color: #EB6841;
+    background: #00A0B0;
+    padding: 5px;
+    border-right: 5px;
 }

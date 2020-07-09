@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +18,12 @@ public class User implements UserDetails {
     private long id;
 
     @Column(name = "username")
+    @NotEmpty
+    //user name will be employee email
     private String username;
 
     @Column(name = "password")
+    @NotEmpty
     private String password;
 
     @Column(name = "enabled")

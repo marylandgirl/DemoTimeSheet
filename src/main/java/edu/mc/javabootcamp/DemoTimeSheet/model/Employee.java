@@ -1,6 +1,7 @@
 package edu.mc.javabootcamp.DemoTimeSheet.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String ssn;
+
+    @NotNull
     private String lastName;
+
+    @NotNull
     private String firstName;
     private String email;
     private String strAddr;

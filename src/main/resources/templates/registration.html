@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Sign In</title>
+    <title>Register or Sign In</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" type="text/css" rel="stylesheet"/>
@@ -80,24 +80,34 @@
                 <div class="col-lg-4"><!--Start col #2-->
                     <div class="card text-center card-form card-reg">
                         <div class="card-body">
-                            <h3>Sign In</h3>
-                            <p>Please Sign In</p>
-                            <form th:action="@{/login}" th:object="${user}" method="post">
+                            <h3>Sign Up Today</h3>
+                            <p>Please Fill Out This Form To Register</p>
+                            <form th:action="@{/register}" method="post" th:object="${user}">
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="text" placeholder="First Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg in-reg" type="text" placeholder="Last Name"/>
+                                </div>
                                 <div class="form-group">
                                     <input class="form-control form-control-lg in-reg" type="email" placeholder="Email"
                                            th:field="*{username}"/>
+                                    <span th:if="${#fields.hasErrors('username')}"
+                                          th:errors="*{username}"><br />
+                                    </span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control form-control-lg in-reg" type="password"
-                                           placeholder="Password" th:field="*{password}"/>
+                                    <input class="form-control form-control-lg in-reg" type="password" placeholder="Password"
+                                           th:field="*{password}"/>
+                                    <span th:if="${#fields.hasErrors('password')}"
+                                          th:errors="*{password}"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control form-control-lg in-reg" type="password"
-                                           placeholder="Confirm Password"/>
+                                    <input class="form-control form-control-lg in-reg" type="password" placeholder="Confirm Password"/>
                                 </div>
                                 <input type="submit" value="Submit" class="btn btn-block btn-reg-submit" />
+                                <span class="form-text"><strong>Already Have an Account?</strong>&nbsp;<a class="log-reg" href="login.html" th:href="@{/login}">Sign In</a></span>
                             </form>
-                            <span class="form-text"><strong>Don't Have an Account?</strong>&nbsp;<a class="log-reg" href="registration.html" th:href="@{/register}">Register</a></span>
                         </div>
                     </div>
                 </div><!--End col #2-->
